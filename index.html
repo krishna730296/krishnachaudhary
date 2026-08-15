@@ -5,147 +5,217 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Krishna Chaudhary — Developer</title>
   <meta name="description" content="Student at Amity University. I don't use social media — I build things that matter instead.">
-  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+  </div>
+
+  <!-- Noise Overlay -->
+  <div class="noise"></div>
+
   <!-- Grid Background -->
-  <div class="grid-bg"></div>
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
+  <canvas id="grid-canvas"></canvas>
+
+  <!-- Magnetic Glow -->
+  <div class="mouse-glow" id="mouse-glow"></div>
 
   <!-- Navbar -->
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="#" class="nav-logo"><span class="logo-bracket">&lt;</span>KC<span class="logo-bracket">/&gt;</span></a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-menu" id="nav-menu">
-        <li><a href="#about" class="nav-link"><span class="nav-num">01.</span> About</a></li>
-        <li><a href="#projects" class="nav-link"><span class="nav-num">02.</span> Projects</a></li>
-        <li><a href="#stack" class="nav-link"><span class="nav-num">03.</span> Stack</a></li>
-        <li><a href="#contact" class="nav-link"><span class="nav-num">04.</span> Contact</a></li>
-      </ul>
+      <a href="#" class="nav-logo magnetic" data-strength="0.3">
+        <span class="logo-bracket">&lt;</span><span class="logo-text">KC</span><span class="logo-bracket">/&gt;</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#about" class="nav-link magnetic" data-strength="0.2"><span class="nav-num">01</span><span class="nav-text">About</span></a></li>
+          <li><a href="#projects" class="nav-link magnetic" data-strength="0.2"><span class="nav-num">02</span><span class="nav-text">Projects</span></a></li>
+          <li><a href="#stack" class="nav-link magnetic" data-strength="0.2"><span class="nav-num">03</span><span class="nav-text">Stack</span></a></li>
+          <li><a href="#contact" class="nav-link magnetic" data-strength="0.2"><span class="nav-num">04</span><span class="nav-text">Contact</span></a></li>
+        </ul>
+        <a href="https://github.com/krishna730296" target="_blank" class="nav-github magnetic" data-strength="0.3">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
   <!-- Hero -->
   <section class="hero" id="hero">
     <div class="container">
-      <div class="terminal-window">
-        <div class="terminal-bar">
+      <div class="hero-content">
+        <div class="hero-badge reveal-up">
+          <span class="badge-dot"></span>
+          Available for projects
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-line reveal-up"><span class="hero-name" data-scramble="Krishna">Krishna</span></span>
+          <span class="hero-line reveal-up"><span class="hero-name highlight" data-scramble="Chaudhary">Chaudhary</span></span>
+        </h1>
+        <div class="hero-subtitle reveal-up">
+          <span class="subtitle-line">
+            <span class="code-token">const</span>
+            <span class="code-var">role</span>
+            <span class="code-op">=</span>
+            <span class="code-string">"Full-Stack Developer"</span>
+            <span class="code-op">;</span>
+          </span>
+        </div>
+        <p class="hero-desc reveal-up">I don't use social media — I build things that matter instead.</p>
+        <div class="hero-actions reveal-up">
+          <a href="#projects" class="btn btn-primary magnetic" data-strength="0.15">
+            <span class="btn-text">See My Work</span>
+            <span class="btn-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+          <a href="mailto:krishnaajeetisback@gmail.com" class="btn btn-ghost magnetic" data-strength="0.15">
+            <span class="btn-text">Contact Me</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Terminal -->
+      <div class="terminal reveal-up" id="terminal">
+        <div class="terminal-chrome">
           <div class="terminal-dots">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
+            <span class="dot dot-close"></span>
+            <span class="dot dot-min"></span>
+            <span class="dot dot-max"></span>
           </div>
-          <span class="terminal-title">krishna@dev ~ %</span>
+          <span class="terminal-title">krishna@dev ~ </span>
         </div>
         <div class="terminal-body">
-          <p class="terminal-line"><span class="t-green">const</span> <span class="t-blue">developer</span> = {</p>
-          <p class="terminal-line indent"><span class="t-purple">name</span>: <span class="t-orange">"Krishna Chaudhary"</span>,</p>
-          <p class="terminal-line indent"><span class="t-purple">role</span>: <span class="t-orange">"Full-Stack Developer"</span>,</p>
-          <p class="terminal-line indent"><span class="t-purple">university</span>: <span class="t-orange">"Amity University"</span>,</p>
-          <p class="terminal-line indent"><span class="t-purple">socialMedia</span>: <span class="t-red">false</span>,</p>
-          <p class="terminal-line indent"><span class="t-purple">building</span>: <span class="t-green">true</span>,</p>
-          <p class="terminal-line">};</p>
-          <p class="terminal-line"></p>
-          <p class="terminal-line"><span class="t-green">while</span> (<span class="t-blue">developer</span>.building) {</p>
-          <p class="terminal-line indent"><span class="t-blue">developer</span>.<span class="t-yellow">build</span>();</p>
-          <p class="terminal-line">}</p>
+          <div class="terminal-line" data-delay="0"><span class="t-prompt">$</span> <span class="t-cmd">cat</span> about.json</div>
+          <div class="terminal-line" data-delay="200"><span class="t-prompt">{</span></div>
+          <div class="terminal-line" data-delay="400"><span class="t-prompt">  "name":</span> <span class="t-str">"Krishna Chaudhary"</span>,</div>
+          <div class="terminal-line" data-delay="600"><span class="t-prompt">  "university":</span> <span class="t-str">"Amity University"</span>,</div>
+          <div class="terminal-line" data-delay="800"><span class="t-prompt">  "social_media":</span> <span class="t-bool">false</span>,</div>
+          <div class="terminal-line" data-delay="1000"><span class="t-prompt">  "building":</span> <span class="t-bool">true</span>,</div>
+          <div class="terminal-line" data-delay="1200"><span class="t-prompt">  "focus":</span> [<span class="t-str">"fullstack"</span>, <span class="t-str">"systems"</span>]</div>
+          <div class="terminal-line" data-delay="1400"><span class="t-prompt">}</span></div>
+          <div class="terminal-line" data-delay="1600"><span class="t-prompt">$</span> <span class="t-cursor">_</span></div>
         </div>
       </div>
-      <p class="hero-tagline">I don't use social media — I build things that matter.</p>
-      <div class="hero-links">
-        <a href="#projects" class="btn"><span class="btn-arrow">&rarr;</span> See My Work</a>
-        <a href="https://github.com/krishna730296" class="btn btn-outline" target="_blank">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right:8px;vertical-align:middle"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          GitHub
-        </a>
-      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator reveal-up">
+      <div class="scroll-line"></div>
+      <span>scroll</span>
     </div>
   </section>
 
   <!-- About -->
-  <section class="about" id="about">
+  <section class="section about" id="about">
     <div class="container">
-      <h2><span class="section-num">01.</span> About</h2>
+      <div class="section-header">
+        <span class="section-num reveal-up">01</span>
+        <h2 class="section-title reveal-up">About</h2>
+        <div class="section-line reveal-up"></div>
+      </div>
       <div class="about-grid">
-        <div class="about-card">
-          <div class="about-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        <div class="card glass reveal-up" data-delay="0">
+          <div class="card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
           </div>
           <h3>Education</h3>
-          <p>Student at <strong>Amity University</strong> — pursuing CS with focus on systems and full-stack development.</p>
+          <p>Student at <strong>Amity University</strong> — CS with focus on systems architecture and full-stack development.</p>
+          <div class="card-glow"></div>
         </div>
-        <div class="about-card">
-          <div class="about-icon about-icon-red">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        <div class="card glass reveal-up" data-delay="100">
+          <div class="card-icon icon-red">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
           </div>
           <h3>No Social Media</h3>
           <p>Zero Instagram, zero Twitter, zero distractions. Time goes into building, not scrolling.</p>
+          <div class="card-glow"></div>
         </div>
-        <div class="about-card">
-          <div class="about-icon about-icon-green">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <div class="card glass reveal-up" data-delay="200">
+          <div class="card-icon icon-green">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
           </div>
           <h3>Developer</h3>
-          <p>Full-stack and systems builder. React, Node, Go — I turn ideas into working software.</p>
+          <p>Full-stack and systems builder. I turn ideas into working software, one commit at a time.</p>
+          <div class="card-glow"></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Projects -->
-  <section class="projects" id="projects">
+  <section class="section projects" id="projects">
     <div class="container">
-      <h2><span class="section-num">02.</span> Projects</h2>
+      <div class="section-header">
+        <span class="section-num reveal-up">02</span>
+        <h2 class="section-title reveal-up">Projects</h2>
+        <div class="section-line reveal-up"></div>
+      </div>
       <div class="project-grid">
 
-        <a href="project-alpha/" class="project-card" target="_blank">
-          <div class="project-top">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h18v18H3z"/><path d="M9 3v18"/><path d="M3 9h18"/></svg>
-            <div class="project-links">
-              <span class="status-badge live">Live</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <a href="project-alpha/" class="project-card reveal-up" target="_blank" data-delay="0">
+          <div class="project-card-inner">
+            <div class="project-top">
+              <div class="project-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h18v18H3z"/><path d="M9 3v18"/><path d="M3 9h18"/></svg>
+              </div>
+              <div class="project-meta">
+                <span class="status live">Live</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="external-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </div>
             </div>
-          </div>
-          <h3>Project Alpha</h3>
-          <p>Full-stack task manager with JWT auth, React dashboard, Express API. Real-time CRUD operations with priority system.</p>
-          <div class="tags">
-            <span>React</span><span>Node.js</span><span>Express</span><span>JWT</span>
+            <h3>Project Alpha</h3>
+            <p>Full-stack task manager with JWT authentication, React dashboard, Express API, and priority system.</p>
+            <div class="project-tags">
+              <span>React</span><span>Node.js</span><span>Express</span><span>JWT</span>
+            </div>
           </div>
         </a>
 
-        <a href="cli-tool/" class="project-card" target="_blank">
-          <div class="project-top">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-            <div class="project-links">
-              <span class="status-badge live">Live</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <a href="cli-tool/" class="project-card reveal-up" target="_blank" data-delay="100">
+          <div class="project-card-inner">
+            <div class="project-top">
+              <div class="project-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              </div>
+              <div class="project-meta">
+                <span class="status live">Live</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="external-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </div>
             </div>
-          </div>
-          <h3>CLI Notes</h3>
-          <p>Terminal note-taking app in Go. Colored output, pin support, persistent JSON storage. Built with Cobra framework.</p>
-          <div class="tags">
-            <span>Go</span><span>Cobra</span><span>CLI</span><span>JSON</span>
+            <h3>CLI Notes</h3>
+            <p>Terminal note-taking app in Go. Colored output, pin support, persistent JSON storage with Cobra.</p>
+            <div class="project-tags">
+              <span>Go</span><span>Cobra</span><span>CLI</span><span>JSON</span>
+            </div>
           </div>
         </a>
 
-        <div class="project-card current-project">
-          <div class="project-top">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            <div class="project-links">
-              <span class="status-badge current">Live Now</span>
+        <div class="project-card reveal-up current-project" data-delay="200">
+          <div class="project-card-inner">
+            <div class="project-top">
+              <div class="project-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div class="project-meta">
+                <span class="status current">Live Now</span>
+              </div>
             </div>
-          </div>
-          <h3>This Website</h3>
-          <p>Portfolio built from scratch. Dark theme, terminal aesthetics, responsive. Deployed on GitHub Pages with custom domain.</p>
-          <div class="tags">
-            <span>HTML</span><span>CSS</span><span>JS</span><span>GitHub Pages</span>
+            <h3>This Website</h3>
+            <p>Portfolio built from scratch with custom cursor, terminal aesthetics, and glassmorphism. Deployed on GitHub Pages.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub Pages</span>
+            </div>
           </div>
         </div>
 
@@ -154,55 +224,59 @@
   </section>
 
   <!-- Stack -->
-  <section class="stack" id="stack">
+  <section class="section stack" id="stack">
     <div class="container">
-      <h2><span class="section-num">03.</span> Tech Stack</h2>
+      <div class="section-header">
+        <span class="section-num reveal-up">03</span>
+        <h2 class="section-title reveal-up">Tech Stack</h2>
+        <div class="section-line reveal-up"></div>
+      </div>
       <div class="stack-grid">
-        <div class="stack-item">
+        <div class="stack-item reveal-up" data-delay="0">
           <div class="stack-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
           </div>
           <span>React</span>
         </div>
-        <div class="stack-item">
+        <div class="stack-item reveal-up" data-delay="50">
           <div class="stack-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
           </div>
           <span>Node.js</span>
         </div>
-        <div class="stack-item">
+        <div class="stack-item reveal-up" data-delay="100">
           <div class="stack-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
           </div>
           <span>Go</span>
         </div>
-        <div class="stack-item">
+        <div class="stack-item reveal-up" data-delay="150">
           <div class="stack-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           </div>
           <span>JavaScript</span>
         </div>
-        <div class="stack-item">
+        <div class="stack-item reveal-up" data-delay="200">
           <div class="stack-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
           </div>
           <span>MongoDB</span>
         </div>
-        <div class="stack-item">
+        <div class="stack-item reveal-up" data-delay="250">
           <div class="stack-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </div>
           <span>Express</span>
         </div>
-        <div class="stack-item">
+        <div class="stack-item reveal-up" data-delay="300">
           <div class="stack-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <span>JWT</span>
         </div>
-        <div class="stack-item">
+        <div class="stack-item reveal-up" data-delay="350">
           <div class="stack-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
           </div>
           <span>Git</span>
         </div>
@@ -211,30 +285,35 @@
   </section>
 
   <!-- Contact -->
-  <section class="contact" id="contact">
+  <section class="section contact" id="contact">
     <div class="container">
-      <h2><span class="section-num">04.</span> Contact</h2>
+      <div class="section-header">
+        <span class="section-num reveal-up">04</span>
+        <h2 class="section-title reveal-up">Contact</h2>
+        <div class="section-line reveal-up"></div>
+      </div>
       <div class="contact-content">
-        <p class="contact-text">No DMs. No tweets. Just email.</p>
-        <a href="mailto:krishnaajeetisback@gmail.com" class="btn btn-contact">
+        <p class="contact-text reveal-up">No DMs. No tweets. Just email.</p>
+        <a href="mailto:krishnaajeetisback@gmail.com" class="btn btn-large magnetic reveal-up" data-strength="0.1">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:10px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          krishnaajeetisback@gmail.com
+          <span class="btn-text">krishnaajeetisback@gmail.com</span>
         </a>
-        <p class="contact-note">I typically respond within 24 hours.</p>
+        <p class="contact-note reveal-up">I typically respond within 24 hours.</p>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="container footer-content">
+    <div class="container footer-inner">
       <div class="footer-left">
         <span class="footer-logo"><span class="logo-bracket">&lt;</span>KC<span class="logo-bracket">/&gt;</span></span>
-        <span class="footer-copy">&copy; 2026 Krishna Chaudhary</span>
+        <span class="footer-divider">|</span>
+        <span class="footer-copy">&copy; 2026</span>
       </div>
       <div class="footer-right">
-        <a href="https://github.com/krishna730296" target="_blank" class="footer-link">GitHub</a>
-        <a href="mailto:krishnaajeetisback@gmail.com" class="footer-link">Email</a>
+        <a href="https://github.com/krishna730296" target="_blank" class="footer-link magnetic" data-strength="0.2">GitHub</a>
+        <a href="mailto:krishnaajeetisback@gmail.com" class="footer-link magnetic" data-strength="0.2">Email</a>
       </div>
     </div>
   </footer>
