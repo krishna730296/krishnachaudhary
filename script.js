@@ -1,5 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  // ─── Page Loader ───
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('hidden');
+    document.body.style.overflow = '';
+    // Show shortcut hint after load
+    setTimeout(() => {
+      document.getElementById('shortcut-hint').classList.add('visible');
+      setTimeout(() => {
+        document.getElementById('shortcut-hint').classList.remove('visible');
+      }, 5000);
+    }, 2000);
+  }, 1400);
+  document.body.style.overflow = 'hidden';
+
   // ─── Custom Cursor ───
   const cursor = document.getElementById('cursor');
   const cursorDot = cursor.querySelector('.cursor-dot');
@@ -14,15 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function animateRing() {
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
     cursorRing.style.left = ringX + 'px';
     cursorRing.style.top = ringY + 'px';
     requestAnimationFrame(animateRing);
   }
   animateRing();
 
-  // Cursor hover states
   document.querySelectorAll('a, button, .project-card:not(.current-project), .magnetic').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
@@ -38,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── Grid Canvas ───
   const canvas = document.getElementById('grid-canvas');
   const ctx = canvas.getContext('2d');
-  let gridMouse = { x: 0, y: 0 };
+  let gridMouse = { x: -1000, y: -1000 };
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -79,6 +93,105 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(drawGrid);
   }
   drawGrid();
+
+  // ─── GitHub Contribution Graph ───
+  const graphContainer = document.getElementById('github-graph');
+  if (graphContainer) {
+    const levels = [0, 0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 0, 0, 1, 1, 2, 3, 0, 0, 0, 1, 2, 2, 3, 0, 0, 0, 0, 1, 1, 0, 0, 2, 3, 0, 0, 1, 1, 0, 0, 0, 0, 1, 2, 3, 0, 0, 1];
+    levels.forEach((level, i) => {
+      const cell = document.createElement('div');
+      cell.className = 'github-cell';
+      if (level > 0) {
+        cell.classList.add('active');
+        if (level >= 1) cell.classList.add('med');
+        if (level >= 2) cell.classList.add('high');
+        if (level >= 3) cell.classList.add('max');
+      }
+      cell.title = `${level} contributions`;
+      graphContainer.appendChild(cell);
+    });
+  }
+
+  // ─── Stat Counter Animation ───
+  const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-count'));
+        const duration = 1500;
+        const start = performance.now();
+        function update(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 4);
+          el.textContent = Math.floor(target * eased).toLocaleString();
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  statNumbers.forEach(el => statObserver.observe(el));
+
+  // ─── 3D Tilt on Project Cards ───
+  document.querySelectorAll('.project-card:not(.current-project)').forEach(card => {
+    const inner = card.querySelector('.project-card-inner');
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      inner.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateZ(10px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      inner.style.transform = 'rotateY(0) rotateX(0) translateZ(0)';
+    });
+  });
+
+  // ─── Keyboard Shortcuts ───
+  const shortcutsModal = document.getElementById('shortcuts-modal');
+  const shortcutsClose = document.getElementById('shortcuts-close');
+
+  document.addEventListener('keydown', (e) => {
+    // Don't trigger if typing in input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    switch(e.key) {
+      case '?':
+        shortcutsModal.classList.toggle('visible');
+        break;
+      case 'Escape':
+        shortcutsModal.classList.remove('visible');
+        break;
+      case '1':
+        document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        break;
+      case '2':
+        document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        break;
+      case '3':
+        document.getElementById('stack').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        break;
+      case '4':
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        break;
+      case 'g':
+        window.open('https://github.com/krishna730296', '_blank');
+        break;
+      case 'e':
+        window.location.href = 'mailto:krishnaajeetisback@gmail.com';
+        break;
+    }
+  });
+
+  shortcutsClose.addEventListener('click', () => {
+    shortcutsModal.classList.remove('visible');
+  });
+
+  shortcutsModal.addEventListener('click', (e) => {
+    if (e.target === shortcutsModal) shortcutsModal.classList.remove('visible');
+  });
 
   // ─── Navbar ───
   const navbar = document.getElementById('navbar');
@@ -160,21 +273,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Scramble on load
   document.querySelectorAll('[data-scramble]').forEach(el => {
     const text = el.getAttribute('data-scramble');
     const scrambler = new TextScramble(el);
     setTimeout(() => {
-      scrambler.setText(text).then(() => {
-        el.textContent = text;
-      });
-    }, 800 + Math.random() * 400);
+      scrambler.setText(text).then(() => { el.textContent = text; });
+    }, 1600 + Math.random() * 400);
   });
 
   // ─── Terminal Typing ───
-  const terminalLines = document.querySelectorAll('.terminal-line');
-  terminalLines.forEach((line, i) => {
-    setTimeout(() => line.classList.add('visible'), 600 + i * 180);
+  document.querySelectorAll('.terminal-line').forEach((line, i) => {
+    setTimeout(() => line.classList.add('visible'), 1800 + i * 180);
   });
 
   // ─── Scroll Reveal ───
@@ -188,7 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
   revealElements.forEach(el => revealObserver.observe(el));
 
   // ─── Magnetic Effect ───
