@@ -4,14 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Krishna Chaudhary — Student, Developer</title>
+  <meta name="description" content="Student at Amity University. I don't use social media — I build things that matter instead.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="nav-logo">KC</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#philosophy" class="nav-link">Philosophy</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" id="hero">
     <div class="container">
       <div class="badge">STUDENT @ AMITY UNIVERSITY</div>
       <h1>Krishna <span class="highlight">Chaudhary</span></h1>
@@ -20,6 +39,11 @@
       <div class="hero-links">
         <a href="#projects" class="btn">See My Work</a>
         <a href="mailto:krishnaajeetisback@gmail.com" class="btn btn-outline">Contact Me</a>
+      </div>
+      <div class="scroll-indicator">
+        <div class="mouse">
+          <div class="wheel"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -30,17 +54,17 @@
       <h2>About Me</h2>
       <div class="about-grid">
         <div class="about-card">
-          <div class="icon">🎓</div>
+          <div class="icon">&#x1F393;</div>
           <h3>Education</h3>
           <p>Student at <strong>Amity University</strong> — pursuing excellence in technology and innovation.</p>
         </div>
         <div class="about-card">
-          <div class="icon">🚫</div>
+          <div class="icon">&#x1F6AB;</div>
           <h3>No Social Media</h3>
           <p>Zero Instagram, Twitter. I invest my time in building, learning, and real connections.</p>
         </div>
         <div class="about-card">
-          <div class="icon">💻</div>
+          <div class="icon">&#x1F4BB;</div>
           <h3>Developer</h3>
           <p>Full-stack and systems builder. I turn ideas into working software, one commit at a time.</p>
         </div>
@@ -53,38 +77,56 @@
     <div class="container">
       <h2>Projects</h2>
       <div class="project-grid">
-        <div class="project-card">
+
+        <a href="project-alpha/" class="project-card" target="_blank">
+          <div class="project-header">
+            <div class="project-icon">&#x1F680;</div>
+            <span class="project-status live">Live</span>
+          </div>
           <h3>Project Alpha</h3>
-          <p>A full-stack web application built with Node.js and React.</p>
+          <p>A full-stack task management app built with Node.js, Express, React, and MongoDB. Features JWT auth, real-time updates, and a clean dashboard.</p>
           <div class="tags">
             <span>React</span>
             <span>Node.js</span>
             <span>MongoDB</span>
+            <span>JWT</span>
           </div>
-        </div>
-        <div class="project-card">
+        </a>
+
+        <a href="cli-tool/" class="project-card" target="_blank">
+          <div class="project-header">
+            <div class="project-icon">&#x2699;&#xFE0F;</div>
+            <span class="project-status live">Live</span>
+          </div>
           <h3>CLI Tool</h3>
-          <p>Command-line productivity tool built in Go.</p>
+          <p>Command-line productivity tool built in Go. Manage notes, todos, and quick memos directly from your terminal.</p>
           <div class="tags">
             <span>Go</span>
             <span>CLI</span>
+            <span>Cobra</span>
           </div>
-        </div>
-        <div class="project-card">
+        </a>
+
+        <div class="project-card disabled">
+          <div class="project-header">
+            <div class="project-icon">&#x1F310;</div>
+            <span class="project-status current">Current</span>
+          </div>
           <h3>Portfolio Site</h3>
-          <p>This very website — built from scratch and deployed via GitHub Pages.</p>
+          <p>This very website — built from scratch and deployed via GitHub Pages with a custom domain.</p>
           <div class="tags">
             <span>HTML</span>
             <span>CSS</span>
             <span>GitHub Pages</span>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- Philosophy -->
-  <section class="philosophy">
+  <section class="philosophy" id="philosophy">
     <div class="container">
       <blockquote>
         "The opposite of social media isn't isolation — it's <strong>intention</strong>."
@@ -99,6 +141,7 @@
       <h2>Get In Touch</h2>
       <p>No DMs. No tweets. Just email.</p>
       <a href="mailto:krishnaajeetisback@gmail.com" class="btn btn-large">krishnaajeetisback@gmail.com</a>
+      <p class="quiet">I typically respond within 24 hours.</p>
     </div>
   </section>
 

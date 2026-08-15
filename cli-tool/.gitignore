@@ -1,0 +1,19 @@
+# Binaries
+notes
+notes.exe
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test
+*.test
+
+# Output
+*.out
+
+# Dependency
+vendor/
